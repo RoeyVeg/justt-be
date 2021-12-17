@@ -17,4 +17,5 @@ const initializaDB = () => {
 
 module.exports = {
   initializaDB,
+  pool,
 };
