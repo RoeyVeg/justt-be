@@ -5,9 +5,21 @@ const getTransactions = (req, res) => {
   pool.query("SELECT * from transactions", (err, result) => {
     if (err) {
       console.log({ err });
+      res.status(400).json({ error: err });
     }
-    // pool.end();
     res.status(200).json(result.rows);
+  });
+};
+
+const deleteTransaction = (req, res) => {
+  const query = `DELETE FROM transactions WHERE customer_id = $1`;
+  pool.query(query, [req.params.id], (err, result) => {
+    if (err) {
+      console.log({ err });
+      res.status(400).json({ error: err });
+    }
+    console.log("sucess deleting transaction");
+    res.status(200).json(result);
   });
 };
 
@@ -28,6 +40,7 @@ const insertTransactions = (req, res) => {
   pool.query(query, [...Object.values(req.body)], (err, result) => {
     if (err) {
       console.log({ err });
+      res.status(400).json({ error: err });
     }
     console.log("sucess adding transaction");
     res.status(200).send(`transaction added`);
@@ -36,4 +49,5 @@ const insertTransactions = (req, res) => {
 module.exports = {
   getTransactions,
   insertTransactions,
+  deleteTransaction,
 };

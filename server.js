@@ -14,7 +14,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/transactions", transactions.getTransactions);
-app.post("/add-transaction", transactions.insertTransactions);
+app.post("/transaction", transactions.insertTransactions);
+app.delete("/transactions/:id", transactions.deleteTransaction);
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
