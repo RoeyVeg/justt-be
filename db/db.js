@@ -2,7 +2,7 @@ const { Pool } = require("pg");
 const pgtools = require("pgtools");
 const { trans } = require("../data/data");
 
-const dbName = "justtDb";
+const dbName = `justtDb${Math.random() * 1000}`;
 
 const initDB = async () => {
   console.log("init db");
