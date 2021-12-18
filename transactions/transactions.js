@@ -12,7 +12,6 @@ const getTransactions = (req, res) => {
 };
 
 const insertTransactions = (req, res) => {
-  console.log({ body: req.body });
   const {
     custId,
     firstName,
@@ -23,12 +22,15 @@ const insertTransactions = (req, res) => {
     ccType,
     ccNumber,
   } = req.body;
-  pool.query("SELECT * from transactions", (err, result) => {
+  const query = `INSERT INTO transactions (customer_id, first_name, last_name, email, total_price, currency, cerdit_card_type, cerdit_card_number)
+  VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
+  `;
+  pool.query(query, [...Object.values(req.body)], (err, result) => {
     if (err) {
       console.log({ err });
     }
-    // pool.end();
-    res.status(200).json(result.rows);
+    console.log("sucess adding transaction");
+    res.status(200).send(`transaction added`);
   });
 };
 module.exports = {
