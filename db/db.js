@@ -9,17 +9,6 @@ const pool = new Pool({
   port: 5432,
 });
 
-// pool.connect((err, client, release) => {
-//   if (err) {
-//     return console.error("Error acquire client");
-//   }
-//   if (client) {
-//     release();
-//   }
-// });
-// console.log({ pool });
-// pool.query = util.promisify(pool.query);
-
 const initializaDB = () => {
   pool.query("SELECT * from transactions", (err, res) => {
     console.log({ rows: res.rows });
