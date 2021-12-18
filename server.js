@@ -9,7 +9,7 @@ const port = 8080;
 const transactions = require("./transactions/transactions");
 
 initDB();
-// initializaeTable();
+
 app.use(bodyParser.json());
 app.use(cors());
 
