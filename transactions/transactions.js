@@ -7,7 +7,7 @@ const getTransactions = async (req, res) => {
     res.status(200).json(result.rows);
   } catch (error) {
     console.log({ error });
-    res.status(400).json({ error: err });
+    res.status(400).json({ error });
   }
 };
 
@@ -18,8 +18,8 @@ const deleteTransaction = async (req, res) => {
     console.log("sucess deleting transaction");
     res.status(200).json(result);
   } catch (error) {
-    console.log({ err });
-    res.status(400).json({ error: err });
+    console.log({ error });
+    res.status(400).json({ error });
   }
 };
 
@@ -42,8 +42,8 @@ const insertTransactions = async (req, res) => {
     console.log("sucess adding transaction");
     res.status(200).send(`transaction added`);
   } catch (error) {
-    console.log({ err });
-    res.status(400).json({ error: err });
+    console.log({ error });
+    res.status(400).json({ error });
   }
 };
 const updateTransaction = async (req, res) => {
@@ -66,8 +66,8 @@ const updateTransaction = async (req, res) => {
     console.log("sucess update transaction");
     res.status(200).send(`transaction updated`);
   } catch (error) {
-    console.log({ err });
-    res.status(400).json({ error: err });
+    console.log({ error });
+    res.status(400).json({ error });
   }
 };
 module.exports = {

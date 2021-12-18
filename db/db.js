@@ -1,15 +1,33 @@
-const { Pool, Client } = require("pg");
-const util = require("util");
+const { Pool } = require("pg");
+const pgtools = require("pgtools");
 
-const pool = new Pool({
-  user: "",
-  host: "localhost",
-  database: "justtDb",
-  password: "",
-  port: 5432,
-});
+const dbName = "test-db4";
 
-const initializaeTable = async () => {
+const initDB = async () => {
+  console.log("init db");
+  try {
+    const res = await pgtools.createdb(
+      {
+        user: "",
+        password: "",
+        port: 5432,
+        host: "localhost",
+      },
+      dbName
+    );
+    const pool = new Pool({
+      user: "",
+      host: "localhost",
+      database: dbName,
+      password: "",
+      port: 5432,
+    });
+    initializaeTable(pool);
+  } catch (error) {
+    console.log({ error });
+  }
+};
+const initializaeTable = async (pool) => {
   const createTableQuery = `CREATE TABLE IF NOT EXISTS transactions (
     customer_id VARCHAR ( 255 ),
     first_name VARCHAR ( 255 ),
@@ -35,13 +53,23 @@ const initializaeTable = async () => {
                 '4508672811329403'
             )`;
       await pool.query(insertQuery);
+      pool.end();
     }
   } catch (error) {
     console.log({ error });
   }
 };
 
+const pool = new Pool({
+  user: "",
+  host: "localhost",
+  database: dbName,
+  password: "",
+  port: 5432,
+});
+
 module.exports = {
   initializaeTable,
+  initDB,
   pool,
 };

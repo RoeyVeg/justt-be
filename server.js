@@ -2,13 +2,14 @@ const express = require("express");
 let router = express.Router();
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const { initializaeTable } = require("./db/db");
+const { initializaeTable, initDB } = require("./db/db");
 const app = express();
 const port = 8080;
 
 const transactions = require("./transactions/transactions");
 
-initializaeTable();
+initDB();
+// initializaeTable();
 app.use(bodyParser.json());
 app.use(cors());
 
