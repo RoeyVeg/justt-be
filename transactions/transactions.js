@@ -46,8 +46,33 @@ const insertTransactions = (req, res) => {
     res.status(200).send(`transaction added`);
   });
 };
+const updateTransaction = (req, res) => {
+  const {
+    custId,
+    firstName,
+    lastName,
+    email,
+    totalPrice,
+    currency,
+    ccType,
+    ccNumber,
+  } = req.body;
+  const query = `UPDATE transactions SET 
+  first_name = $2, last_name = $3, email = $4, total_price = $5, currency = $6, cerdit_card_type = $7, cerdit_card_number = $8
+  WHERE customer_id = $1
+  `;
+  pool.query(query, [...Object.values(req.body)], (err, result) => {
+    if (err) {
+      console.log({ err });
+      res.status(400).json({ error: err });
+    }
+    console.log("sucess update transaction");
+    res.status(200).send(`transaction updated`);
+  });
+};
 module.exports = {
   getTransactions,
   insertTransactions,
   deleteTransaction,
+  updateTransaction,
 };
