@@ -9,8 +9,6 @@ const pool = new Pool({
   port: 5432,
 });
 
-// pool.query = util.promisify(pool.query);
-
 const initializaeTable = async () => {
   const createTableQuery = `CREATE TABLE IF NOT EXISTS transactions (
     customer_id VARCHAR ( 255 ),
