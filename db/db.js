@@ -1,7 +1,7 @@
 const { Pool } = require("pg");
 const pgtools = require("pgtools");
 
-const dbName = "test-db4";
+const dbName = "justtDb";
 
 const initDB = async () => {
   console.log("init db");
