@@ -1,5 +1,6 @@
 const { Pool } = require("pg");
 const pgtools = require("pgtools");
+const { trans } = require("../data/data");
 
 const dbName = "justtDb";
 
@@ -42,16 +43,14 @@ const initializaeTable = async (pool) => {
     const result = await pool.query(createTableQuery);
     const transactionsRaw = await pool.query("SELECT * from transactions");
     if (transactionsRaw.rows.length === 0) {
-      const insertQuery = `INSERT INTO transactions VALUES (
-            '387-63-2772',
-                'Ellwood',
-                'Speirs',
-                'espeirs1@mediafire.com',
-                '4257.95',
-                'IDR',
-                'visa-electron',
-                '4508672811329403'
-            )`;
+      const valString = trans
+        .map((d) => {
+          const vals = Object.values(d);
+          const valsStr = `(${vals.map((v) => `'${v}'`).join(",")})`;
+          return valsStr;
+        })
+        .join(",");
+      const insertQuery = `INSERT INTO transactions VALUES ${valString}`;
       await pool.query(insertQuery);
       pool.end();
     }
